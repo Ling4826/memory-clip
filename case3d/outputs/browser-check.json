@@ -1,0 +1,14 @@
+{
+  "result": [
+    "PASS: Edge headless; CDN page load, 4 versions, open-front cover toggle, dimension labels, opacity, explosion/rebuild, STL invariance/guards, solder view, pendant comparison and flip screenshot, scene cleanup, disposal, 390px mobile; no console errors"
+  ],
+  "errors": [],
+  "before": {
+    "geometries": 199,
+    "textures": 4
+  },
+  "after": {
+    "geometries": 199,
+    "textures": 4
+  }
+}

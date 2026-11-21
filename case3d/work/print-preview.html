@@ -1,0 +1,42 @@
+<!doctype html><html lang="th"><meta charset="utf-8"><title>รุ่น 2 · ภาพสำหรับพิมพ์</title>
+<style>body{margin:0;background:#f5f6f2;color:#263e48;font:15px Tahoma,sans-serif}header{position:absolute;left:32px;top:24px;right:32px}h1{font-size:24px;margin:0 0 8px}p{margin:0;line-height:1.6}footer{position:absolute;bottom:22px;left:32px;color:#526a70;font-size:13px}canvas{display:block}</style>
+<header><h1 id="title"></h1><p id="subtitle"></p></header><footer id="note"></footer><script src="config.js"></script><script type="module">
+import * as THREE from './vendor/three.module.js';import {makeShell} from './shell-geometry.js';
+const {buildDevice}=new Function('THREE','CONFIG','makeShell',await(await fetch('model.js')).text()+'\nreturn {buildDevice};')(THREE,window.CONFIG,makeShell);
+const manifest=await(await fetch('../print/v2/manifest.json')).json(),scene=new THREE.Scene(),renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(innerWidth,innerHeight);renderer.setClearColor('#f5f6f2');renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;document.body.append(renderer.domElement);
+scene.add(new THREE.HemisphereLight('#ffffff','#9aa6a8',2.4));for(const [pos,color,power] of [[[70,-90,150],'#fff9ec',3],[[-100,40,50],'#d1e8f2',2]]){const l=new THREE.DirectionalLight(color,power);l.position.set(...pos);scene.add(l);}
+let content=new THREE.Group();scene.add(content);
+const mat=new THREE.MeshStandardMaterial({color:'#6d9da7',roughness:.7,metalness:0,side:THREE.DoubleSide});
+async function show(key){
+ content.traverse(o=>o.geometry?.dispose());scene.remove(content);content=new THREE.Group();scene.add(content);let camera;
+ if(key==='assembled'||key==='exploded'||key==='solder'){
+  const d=buildDevice({version:'v2',variant:'pendant',battery:1200,angle:CONFIG.camera.pendantTilt,fov:false,torso:false},false);d.shirt.visible=false;
+  if(key==='exploded'){d.parts.front.position.set(-30,15,36);d.parts.cap.position.set(-30,15,53);d.parts.back.position.set(15,-5,-35);d.parts.mount.position.set(25,-10,-68);d.parts.battery.position.z=-10;d.parts.hardware.visible=false;d.root.getObjectByName('v2-sd-foam').position.add(new THREE.Vector3(-30,15,36));}
+  content.add(d.root);camera=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,.1,2000);camera.position.set(key==='exploded'?205:130,100,key==='exploded'?240:205);camera.lookAt(0,0,0);
+  document.querySelector('#title').textContent=key==='assembled'?'รุ่น 2 · ประกอบครบ แบบคล้องคอ':'รุ่น 2 · แยกชิ้นเพื่อประกอบ';
+  document.querySelector('#subtitle').textContent=key==='assembled'?'XIAO ESP32S3 Sense · แบต 603450 · รุ่นพิมพ์ 3D':'ฝาหน้า/ปุ่ม → บอร์ดและแบต → ฝาหลัง → แขนคลิป';
+  document.querySelector('#note').textContent='ภาพประกอบแนวคิด · อิเล็กทรอนิกส์และโลหะในภาพไม่อยู่ใน STL · ต้องวัดของจริง';
+  if(key==='solder'){
+   d.parts.front.visible=d.parts.cap.visible=d.parts.hardware.visible=d.parts.back.visible=d.parts.mount.visible=false;
+   d.root.traverse(o=>{if(o.userData.sense||o.userData.ribbon||o.name==='v2-sd-foam')o.visible=false;});
+   camera.position.set(-6,d.p.boardY+5,75);camera.lookAt(0,d.p.boardY-1,-3);
+   document.querySelector('#title').textContent='งานบัดกรี · ด้านหลัง XIAO (ถอด Sense)';
+   document.querySelector('#subtitle').textContent='BAT+/BAT− กลางหลัง · ชาร์จ VUSB/GND หลัง · D5 วัดแบต · D1/GND ขอบสำหรับปุ่ม';
+   document.querySelector('#note').textContent='พิกัดแผ่นประมาณจากรูป · ช่อง B2B 3.5 มม. ยังไม่วัดจริง · D0 เสีย ไม่ใช้';
+  }
+ }else{
+  const p=manifest.parts.find(p=>p.file===key),buffer=await(await fetch('../print/v2/'+key)).arrayBuffer(),v=new DataView(buffer),n=v.getUint32(80,true),a=new Float32Array(n*9);
+  for(let i=0;i<n;i++)for(let j=0;j<9;j++)a[i*9+j]=v.getFloat32(96+i*50+j*4,true);
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));g.computeVertexNormals();const m=new THREE.Mesh(g,mat);content.add(m);
+  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(g,28),new THREE.LineBasicMaterial({color:'#345663',transparent:true,opacity:.32}));content.add(edges);
+  const s=p.metrics.sizeMm,span=Math.max(s[0],s[1],s[2],16),target=new THREE.Vector3(0,0,s[2]*.35),view=new THREE.Vector3(1,-1.35,1.2).normalize().multiplyScalar(span*2.6);
+  camera=new THREE.OrthographicCamera(-span*.86*innerWidth/innerHeight,span*.86*innerWidth/innerHeight,span*.86,-span*.86,.1,2000);camera.up.set(0,0,1);camera.position.copy(target).add(view);camera.lookAt(target);
+  const grid=new THREE.GridHelper(Math.ceil(span/10)*10,Math.ceil(span/10),'#c0cdcd','#dce3df');grid.rotation.x=Math.PI/2;grid.position.z=-.03;content.add(grid);
+  document.querySelector('#title').textContent=p.label;document.querySelector('#subtitle').textContent=p.file+' · '+s.join(' × ')+' mm';
+  document.querySelector('#note').textContent='ฐานกริด = z 0 · '+p.orientation;
+ }
+ renderer.render(scene,camera);return true;
+}
+window.printPreview={show};window.__printReady=true;
+</script></html>

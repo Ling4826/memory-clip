@@ -1,0 +1,25 @@
+# รหัสผ่าน / token (ห้ามขึ้น git)
+wifi_secrets.h
+server/secret.txt
+firmware/step02_wifi/step02_wifi.ino
+firmware/step03b_photo_web/step03b_photo_web.ino
+
+# ไฟล์ใหญ่ / สร้างใหม่ได้
+_backup/
+server/uploads/
+server/cache/
+server/*.txt
+server/*.jsonl
+server/status.json
+.venv-dfam/
+tools/ffmpeg/
+music/
+__pycache__/
+*.zip
+*.bak*
+backup-*/
+.browser-check*/
+.print-browser/
+node_modules/
+graphify-out/cache/
+*.exe

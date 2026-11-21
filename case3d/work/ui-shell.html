@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>กล้องบันทึกความทรงจำ — ต้นแบบติดหน้าอก</title>
+  <!-- CONFIG_INSERT -->
+  <style>
+    :root{--paper:#f7f8f4;--panel:#fffefa;--ink:#182e3d;--muted:#6d7c82;--line:#dee5df;--teal:#157c73;--teal-dark:#0b5b55;--teal-soft:#e7f1eb;--amber:#a37332;--radius:12px;--shadow:0 5px 20px #18352d08;font-family:"Segoe UI",Tahoma,sans-serif;color:var(--ink);background:var(--paper);font-synthesis:none}
+    select{width:100%;min-height:40px;margin-bottom:14px;border:1px solid #ccd6cf;background:#fffefa;border-radius:5px;font:12px Tahoma}.dimension-label{font-size:10px!important;padding:3px 5px!important;border-color:#8ba9af!important;box-shadow:none!important}.joint-label{font-size:11px!important;padding:3px 7px!important;border:1.5px solid #2f7a52!important;background:#f3fbf5!important;color:#1d4d35!important;font-weight:600}.joint-label.todo{border:1.5px dashed #c98a00!important;background:#fff8e8!important;color:#7a5600!important}.joint-label.dead{border-color:#c0392b!important;background:#fdf0ee!important;color:#a12a1d!important}.solder-list{margin-top:12px;font-size:11px;line-height:1.6}.solder-list h3{font-size:12px;margin:0 0 6px}.solder-list ol{margin:0;padding-left:20px}.solder-list li{margin-bottom:3px}.solder-list .todo{color:#7a5600}.solder-list .dead{color:#a12a1d}.check-label{min-height:28px}input[type="range"]{min-height:20px}
+    *{box-sizing:border-box}body{margin:0}button,input,summary{font:inherit}button{color:inherit;cursor:pointer}button:disabled{cursor:default;opacity:.5}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #43a998;outline-offset:3px}button{touch-action:manipulation}button:focus:not(:focus-visible){outline:none}button:hover{border-color:#86b4a5}button:active{transform:translateY(1px)}button,summary{ -webkit-tap-highlight-color:transparent}button{transition:background .15s,border-color .15s,box-shadow .15s}h1,h2,h3,p{margin:0}small{font-size:11px}.app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+    .topbar{height:88px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid var(--line);background:var(--panel);gap:20px}.brand-line{display:flex;align-items:center;gap:21px}.edition{font-size:11px;letter-spacing:2px;font-weight:700;white-space:nowrap;border-right:1px solid var(--line);padding-right:21px;line-height:28px;color:var(--teal)}h1{font-size:21px;line-height:1.3;font-weight:600;letter-spacing:-.4px}.subtitle{font-size:11px;margin-top:5px;color:var(--muted);letter-spacing:.25px}.top-meta{display:flex;align-items:center;gap:18px}.prototype-badge{display:inline-flex;align-items:center;gap:7px;background:var(--teal-soft);border:1px solid #cee2d7;color:var(--teal-dark);padding:7px 11px;border-radius:100px;white-space:nowrap;font-size:11px;font-weight:600}.prototype-badge::before{content:"";width:5px;height:5px;background:var(--teal);border-radius:50%}.revision{font-size:10px;color:var(--muted);letter-spacing:1px}
+    .workspace{display:grid;grid-template-columns:320px minmax(0,1fr);height:calc(100vh - 160px);height:calc(100dvh - 160px);min-height:530px;flex:1}.sidebar{background:var(--panel);border-right:1px solid var(--line);padding:22px 22px 24px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#c9d5ce transparent}.side-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:21px}.eyebrow{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--muted)}.editable-tag{font-size:10px;color:var(--teal);font-weight:600}.control-section{border-top:1px solid var(--line);padding:20px 0}.control-section:first-of-type{padding-top:0;border:0}.section-heading{display:flex;gap:9px;align-items:center;margin-bottom:16px}.section-index{font-size:10px;line-height:20px;color:var(--teal);width:20px}.section-heading h2{font-size:13px;font-weight:600}.field-label{display:block;font-size:11px;font-weight:600;margin-bottom:9px}.segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.segmented.two{grid-template-columns:repeat(2,1fr)}.segmented button{min-height:38px;border:1px solid var(--line);border-radius:7px;background:#fffefa;padding:8px 3px;font-size:11px}.segmented button.active,.segmented button[aria-pressed="true"]{background:var(--teal-soft);border-color:#9bc3b3;color:var(--teal-dark);font-weight:600;box-shadow:inset 0 0 0 1px #bdd5c7}.battery-field{margin-top:17px}.field-note{font-size:10px;color:var(--muted);line-height:1.65;margin-top:8px}.slider-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:8px}.slider-row output{font-variant-numeric:tabular-nums;font-size:10px;color:var(--teal-dark);background:var(--teal-soft);border-radius:4px;padding:3px 6px;min-width:36px;text-align:center}input[type="range"]{width:100%;height:4px;accent-color:var(--teal);cursor:pointer;margin:6px 0 8px}.slider-field+.slider-field{margin-top:20px}.toggle-grid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:13px 6px}.check-label{display:flex;align-items:center;gap:7px;font-size:10px;cursor:pointer;line-height:1.5}.check-label input{accent-color:var(--teal);width:13px;height:13px;flex:none;margin:0}.export-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.export-grid button{display:flex;align-items:center;justify-content:space-between;text-align:left;border:1px solid var(--line);background:#fffefa;padding:9px;border-radius:7px;font-size:10px}.export-grid button::after{content:"↓";font-size:14px;color:var(--teal);line-height:1}.export-meta{font-size:9px;color:var(--muted);line-height:1.7;margin:10px 0 0}.warning{margin:16px 0 0;padding:10px 11px;border-radius:8px;background:#f8f0e2;border:1px solid #ead9ba;color:#80612f;font-size:10px;line-height:1.75}.warning strong{font-weight:600}.help{border-top:1px solid var(--line);padding-top:15px}.help summary{list-style:none;cursor:pointer;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:space-between}.help summary::-webkit-details-marker{display:none}.help summary::after{content:"+";font-size:16px;font-weight:400;color:var(--muted)}.help[open] summary::after{content:"−"}.help-copy{font-size:10px;line-height:1.85;color:var(--muted);margin-top:10px}.help-copy p+p{margin-top:9px}.help-copy code{font-family:Consolas,monospace;font-size:10px;color:var(--teal-dark)}
+    .stage{position:relative;overflow:hidden;isolation:isolate;min-width:0;background:radial-gradient(ellipse at 56% 45%,#fffefa 0%,#f3f5f0 64%,#eaf0e9 100%)}#viewport{position:absolute;inset:0;z-index:0;touch-action:none}#viewport canvas{display:block;width:100%;height:100%;outline:none}.stage-top{position:absolute;top:26px;left:30px;right:28px;display:flex;justify-content:space-between;align-items:flex-start;gap:18px;z-index:2;pointer-events:none}.stage-caption h2{font-size:25px;font-weight:400;letter-spacing:-.5px;line-height:1.35;margin-top:7px}.stage-caption h2 span{font-size:12px;font-weight:400;margin-left:7px;color:var(--muted)}.stage-caption .view-caption{margin-top:7px;font-size:10px;color:var(--muted)}.stage-caption #viewName{color:var(--teal)}.dimensions{display:grid;grid-template-columns:auto auto;gap:7px 16px;border-left:1px solid #cfdbd1;padding-left:18px;font-size:10px;line-height:1.5}.dimensions dt{color:var(--muted)}.dimensions dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}.dimensions .dimension-note{grid-column:1/-1;font-size:9px;color:var(--muted);text-align:right;font-weight:400;margin-top:1px}.legend{position:absolute;top:142px;left:30px;z-index:2;display:flex;flex-direction:column;gap:10px;pointer-events:none}.legend-item{display:flex;align-items:center;gap:7px;font-size:9px;color:var(--muted)}.legend-dot{width:7px;height:7px;display:inline-block;border-radius:50%;box-shadow:0 0 0 1px #18352d18}.front-dot{background:#eae5d8}.back-dot{background:#203f52}.board-dot{background:#27875d}.battery-dot{background:#dcb04e}.camera-dot{background:#22262b}.mount-dot{background:#8678a8}.stage-bottom{position:absolute;bottom:20px;left:28px;right:28px;z-index:3;display:flex;flex-direction:column;gap:17px;pointer-events:none}.view-controls{display:flex;gap:4px;align-self:center;background:#fffefaeF;border:1px solid #dce4db;box-shadow:var(--shadow);border-radius:11px;padding:4px;pointer-events:auto}.view-controls button{border:1px solid transparent;border-radius:7px;background:transparent;padding:9px 14px;font-size:10px;white-space:nowrap}.view-controls button.active,.view-controls button[aria-pressed="true"]{color:var(--teal-dark);background:var(--teal-soft);border-color:#d7e6db;font-weight:600}.view-controls button:hover{background:#edf2eb}.view-controls button[data-view="fit"]{border-left:1px solid var(--line);border-radius:0 7px 7px 0;margin-left:2px;color:var(--teal)}.canvas-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:9px}.mouse-hint{display:flex;gap:13px;flex-wrap:wrap}.mouse-hint span{white-space:nowrap}.mouse-hint b{font-weight:500;color:#50636d}.scale-badge{font-size:9px;letter-spacing:.25px;border:1px solid #cddad0;border-radius:4px;background:#f8faf580;padding:5px 7px;white-space:nowrap}.load-overlay{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-size:12px;background:#f5f7f0ee;line-height:1.7;text-align:center;padding:30px;pointer-events:none}.load-overlay::before{content:"";width:24px;height:24px;border:2px solid #cfded2;border-top-color:var(--teal);border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}#loadStatus[hidden]{display:none}.toast{position:absolute;z-index:6;bottom:112px;left:50%;transform:translateX(-50%);max-width:calc(100% - 40px);border-radius:8px;background:#18382f;color:#fff;padding:10px 15px;font-size:11px;line-height:1.7;box-shadow:0 4px 15px #142a3020;text-align:center;pointer-events:none}.toast:empty{display:none}
+    .workflow{min-height:72px;display:flex;align-items:center;background:var(--panel);border-top:1px solid var(--line);padding:14px 28px;gap:26px;flex:none}.workflow-label{width:265px;flex:none}.workflow-label strong{display:block;font-size:10px;font-weight:600;letter-spacing:.3px}.workflow-label span{display:block;font-size:9px;color:var(--muted);margin-top:4px}.flow-steps{display:flex;align-items:center;justify-content:space-between;flex:1;max-width:1000px;gap:9px}.flow-step{display:flex;align-items:center;gap:8px;font-size:10px;white-space:nowrap;color:#566a72}.flow-num{font-size:9px;color:var(--teal);border:1px solid #d7e5db;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center}.flow-arrow{color:#adbdb2;font-size:13px}.flow-step:last-child{color:var(--teal-dark)}
+    @media(min-width:1500px){.stage-top{top:32px;left:40px;right:38px}.stage-caption h2{font-size:30px}.legend{left:40px;top:155px}.stage-bottom{left:38px;right:38px}}
+    @media(max-width:1120px){.revision{display:none}.dimensions{gap:6px 10px;font-size:9px;padding-left:12px}.stage-top{left:23px;right:21px}.stage-caption h2{font-size:21px}.legend{left:23px}.workflow{gap:20px;padding:14px 22px}.workflow-label{width:278px}.flow-step{font-size:9px;gap:5px}.flow-num{display:none}.flow-steps{gap:7px}.stage-bottom{left:20px;right:20px}.mouse-hint{gap:8px}.mouse-hint span:last-child{display:none}.view-controls button{padding:9px 11px}}
+    @media(max-width:850px){.topbar{height:80px;padding:0 19px}.edition{font-size:9px;padding-right:15px}.brand-line{gap:15px}h1{font-size:18px}.subtitle{font-size:10px}.workspace{grid-template-columns:285px minmax(0,1fr);height:calc(100dvh - 152px)}.sidebar{padding:20px 18px}.stage-top{display:block}.dimensions{position:absolute;top:100px;right:0;gap:6px 9px;max-width:240px}.stage-caption h2{font-size:23px}.legend{top:245px;gap:8px}.view-controls button{padding:8px;font-size:9px}.mouse-hint{font-size:8px}.mouse-hint span:nth-child(2){display:none}.workflow-label{width:245px}.workflow-label strong{font-size:9px}.flow-steps{flex-wrap:wrap;justify-content:flex-start;column-gap:12px;row-gap:4px}}
+    @media(max-width:650px){.app{min-height:100dvh}.topbar{height:auto;min-height:80px;padding:16px;align-items:flex-start;gap:10px}.edition{padding-right:10px;font-size:8px;letter-spacing:1px}.brand-line{gap:10px}.subtitle{font-size:9px;max-width:230px}.top-meta{padding-top:1px}.prototype-badge{font-size:9px;padding:5px 7px;gap:4px}h1{font-size:17px}.workspace{display:flex;flex-direction:column;height:auto;min-height:0;flex:none}.stage{order:0;min-height:490px;height:62vh;max-height:720px;border-bottom:1px solid var(--line)}.sidebar{order:1;overflow:visible;border-right:none;padding:23px 23px 26px}.side-heading{margin-bottom:23px}.control-section{padding:22px 0}.segmented button{font-size:12px;min-height:43px}.check-label{font-size:11px}.field-label,.slider-row{font-size:12px}.toggle-grid{gap:16px}.export-grid button{font-size:11px;padding:11px}.stage-top{left:20px;right:20px;top:21px;display:flex}.stage-caption h2{font-size:22px;margin-top:5px}.stage-caption h2 span{font-size:10px}.dimensions{position:static;max-width:none;border-left:none;padding-left:0;font-size:8px;gap:4px 7px;margin-top:1px}.dimension-note{max-width:150px}.legend{top:117px;left:21px;font-size:8px;gap:8px}.legend-item{font-size:8px}.legend-dot{width:6px;height:6px}.stage-bottom{left:18px;right:18px;bottom:17px;gap:15px}.view-controls button{padding:9px 12px;font-size:10px}.mouse-hint{font-size:8px}.mouse-hint span:nth-child(2){display:initial}.workflow{padding:17px 23px;display:block;min-height:100px}.workflow-label{width:auto;display:flex;align-items:baseline;gap:9px;margin-bottom:12px}.workflow-label strong{font-size:10px}.workflow-label span{font-size:9px;margin:0}.flow-steps{gap:7px;justify-content:space-between;flex-wrap:nowrap}.flow-step{font-size:8px;gap:0}.flow-arrow{font-size:10px}.help-copy,.warning,.export-meta,.field-note{font-size:11px}.toast{bottom:108px}.load-overlay{font-size:11px}}
+    @media(max-width:390px){.topbar{padding:14px 12px}.edition{display:none}h1{font-size:16px}.stage{min-height:460px}.stage-caption h2{font-size:19px}.stage-top{left:17px;right:17px}.dimensions{font-size:7px}.view-controls button{padding:9px}.flow-step{font-size:7px}.flow-arrow{font-size:9px}.prototype-badge{font-size:8px}}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:0s!important;transition:none!important}}
+  
+    @media(min-width:681px){.app{height:100dvh;min-height:660px}.workspace{flex:1 1 0;height:auto;min-height:0}.sidebar{min-height:0}.stage{min-height:0}.workflow{flex:none}}
+    .toast:not(.visible){display:none}.toast.visible{transform:translateX(-50%)}
+  .versions{display:flex;flex-direction:column}.versions button{text-align:left;white-space:normal}button:disabled{opacity:.45;cursor:not-allowed}.view-controls{max-width:100%;overflow-x:auto}.field-note{line-height:1.8}</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand-line">
+      <div class="edition">แบบ / 01</div>
+      <div><h1>กล้องบันทึกความทรงจำ</h1><p class="subtitle">กล้องติดหน้าอกสำหรับนักศึกษา · สำรวจรูปทรงและการประกอบ</p></div>
+    </div>
+    <div class="top-meta"><span class="revision">ศึกษารูปแบบ / 02</span><span class="prototype-badge">ต้นแบบอุปกรณ์</span></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar" aria-label="ตั้งค่าต้นแบบ">
+      <div class="side-heading"><span class="eyebrow">ตั้งค่ารูปแบบ</span><span class="editable-tag">ปรับแบบได้ทันที</span></div>
+      <section class="control-section" aria-labelledby="configurationHeading">
+        <div class="section-heading"><span class="section-index">01</span><h2 id="configurationHeading">เลือกรูปแบบ</h2></div>
+        <span class="field-label" id="mountLabel">วิธีสวมใส่</span>
+        <div class="segmented" role="group" aria-labelledby="mountLabel">
+          <button type="button" data-variant="clip" class="active" aria-pressed="true">คลิปหนีบ</button>
+          <button type="button" data-variant="magnet" aria-pressed="false">แม่เหล็ก</button>
+          <button type="button" data-variant="pendant" aria-pressed="false">ห้อยคอ</button>
+        </div>
+        <div class="battery-field">
+          <span class="field-label" id="versionLabel">รุ่นกล่อง</span>
+          <div class="segmented versions" role="group" aria-labelledby="versionLabel">
+            <button type="button" data-version="v1" aria-pressed="false">รุ่น 1 · กล่องกระดาษ (ตอนนี้)</button>
+            <button type="button" data-version="v2" aria-pressed="false">รุ่น 2 · แก้ล่าสุด (Rev 3)</button>
+            <button type="button" data-version="v2p" class="active" aria-pressed="true">รุ่น 2 · ที่สั่งพิมพ์ (ห่วงตะขอ)</button>
+            <button type="button" data-version="legacy" aria-pressed="false">แบบพิมพ์เดิม</button>
+          </div>
+          <p class="field-note" id="versionNote" aria-live="polite">รุ่น 2: ช่องชาร์จแยก + ไดโอด, ปิดช่อง SD + ผนังกันการ์ดหลุด, ขารองบอร์ด</p>
+          <details id="estimateDetails" class="help" style="margin-top:10px" hidden><summary>ค่าประมาณจากภาพ</summary><p id="estimateNote" class="help-copy" style="white-space:pre-line"></p></details>
+        </div>
+        <div class="battery-field">
+          <span class="field-label" id="batteryLabel">ความจุแบตเตอรี่</span>
+          <div class="segmented two" role="group" aria-labelledby="batteryLabel">
+            <button type="button" data-battery="500" aria-pressed="false">500 mAh</button>
+            <button type="button" data-battery="1000" class="active" aria-pressed="true">603450 (ตัวจริง · 1000 mAh)</button>
+            <button type="button" data-battery="1200" aria-pressed="false">603450 ขนาดใหม่ · 1200 mAh</button>
+          </div>
+          <p class="field-note">แบบพิมพ์ปรับตามแบตที่เลือก · กล่องกระดาษใช้ 603450 เท่านั้น</p>
+        </div>
+      </section>
+      <section class="control-section" aria-labelledby="inspectionHeading">
+        <div class="section-heading"><span class="section-index">02</span><h2 id="inspectionHeading">สำรวจการประกอบ</h2></div>
+        <div class="slider-field">
+          <div class="slider-row"><label for="explode">แยกชิ้นส่วน</label><output id="explodeValue" for="explode">0%</output></div>
+          <input id="explode" type="range" min="0" max="100" value="0" step="1" aria-label="ระดับการแยกชิ้นส่วน">
+        </div>
+        <div class="slider-field">
+          <div class="slider-row"><label for="angle">มุมเงยกล้อง</label><output id="angleValue" for="angle">10°</output></div>
+          <input id="angle" type="range" min="0" max="20" value="10" step="1" aria-label="มุมเงยกล้องเป็นองศา">
+        </div>
+        <div class="toggle-grid">
+          <label class="check-label"><input id="openFront" type="checkbox">เปิดฝาหน้า (ด้านกล้อง)</label>
+          <label class="check-label"><input id="dimensions" type="checkbox">เส้นบอกขนาด</label>
+          <label class="check-label"><input id="labels" type="checkbox">ชื่อชิ้นส่วน</label>
+          <label class="check-label"><input id="transparent" type="checkbox">ตัวเรือนโปร่งใส</label>
+          <label class="check-label"><input id="fov" type="checkbox">ขอบเขตภาพ</label>
+          <label class="check-label"><input id="torso" type="checkbox">แสดงลำตัว</label>
+        </div>
+      </section>
+      <div class="control-section">
+        <p class="field-note" id="dimensionNote" hidden></p>
+        <p class="warning" id="gapNote" aria-live="polite"></p>
+        <p class="field-note" id="wiringNote"></p>
+        <div id="solderList" class="solder-list" hidden></div>
+      </div>
+      <details class="help" open><summary>รายการชิ้นส่วน</summary><div id="partsList" class="help-copy" style="white-space:pre-line"></div><p class="field-note">ขนาดย่อยเป็นค่าประมาณ ไม่ได้วัด</p></details>
+      <section class="control-section" aria-labelledby="exportHeading">
+        <div class="section-heading"><span class="section-index">03</span><h2 id="exportHeading">ส่งออกชิ้นส่วน</h2></div>
+        <div class="export-grid" role="group" aria-labelledby="exportHeading">
+          <button type="button" data-export="front">ฝาหน้า</button>
+          <button type="button" data-export="back">ฝาหลัง</button>
+          <button type="button" data-export="mount">ชุดยึด</button>
+          <button type="button" data-export="cap">ฝาปุ่มกด</button>
+        </div>
+        <p class="export-meta"><a href="../print/v2/index.html" target="_blank" rel="noopener">ไฟล์สำหรับพิมพ์ 3D (รุ่น 2)</a></p>
+        <p class="export-meta" id="exportNote" aria-live="polite">STL · หน่วยมิลลิเมตร · เฉพาะชิ้นส่วนตัวเรือน<br>ไฟล์เป็นแบบประมาณทางวิศวกรรม ไม่รวมอุปกรณ์อิเล็กทรอนิกส์</p>
+        <p class="warning"><strong>ต้องวัดอุปกรณ์จริงก่อนพิมพ์</strong><br>ตรวจตำแหน่งเลนส์ พอร์ต แบตเตอรี่ และระยะเผื่อการประกอบทุกครั้ง</p>
+      </section>
+      <details class="help">
+        <summary>ข้อกำหนดและวิธีใช้งาน</summary>
+        <div class="help-copy">
+          <p>เปิดไฟล์ HTML ในเบราว์เซอร์โดยเชื่อมต่ออินเทอร์เน็ต เพื่อโหลดไลบรารีแสดงผล 3 มิติ</p>
+          <p>ปรับค่า <code>CONFIG</code> ในส่วนต้นไฟล์ให้ตรงกับขนาดบอร์ด ชุดกล้อง แบตเตอรี่ และอุปกรณ์ยึดที่วัดได้จริงก่อนผลิต</p>
+          <p>กล่องกระดาษใช้สาย USB จากบอร์ดออกด้านบน รุ่น 2 เสนอช่องชาร์จแยกด้านล่างพร้อมไดโอด ต้องวัดพอร์ตและทางเดินสายจริง</p>
+          <p>รุ่น 2 ปิดช่อง SD ด้านข้างและเพิ่มโฟมกันเลื่อน ต้องเปิดฝาเพื่อถอดการ์ด ส่วนแบบพิมพ์เดิมมีช่องข้าง · LED ใช้ไม่ได้เพราะ GPIO21 ร่วมกับ SD</p>
+          <p>มุมมองและตัวเลขในแบบมีไว้ประเมินแนวคิด ต้องตรวจการประกอบและความแข็งแรงของชิ้นงานจริง</p>
+        </div>
+      </details>
+    </aside>
+    <section class="stage" aria-label="มุมมองต้นแบบสามมิติ">
+      <div id="viewport" aria-label="โมเดลกล้องสามมิติแบบหมุนและซูมได้"></div>
+      <div class="stage-top">
+        <div class="stage-caption"><p class="eyebrow">กล้องติดหน้าอก</p><h2 id="variantName">คลิปหนีบ</h2><p class="view-caption"><span id="batteryName">แบต 603450</span> · <span id="viewName">มุมสามมิติ</span></p></div>
+        <dl class="dimensions" aria-label="ขนาดและน้ำหนักโดยประมาณ">
+          <dt>ตัวเรือน ก × ส × ล</dt><dd id="dims">—</dd>
+          <dt>รวมชุดยึด</dt><dd id="mountDims">—</dd>
+          <dt>น้ำหนักประมาณ</dt><dd id="mass">—</dd>
+          <dd class="dimension-note">ขนาด มม. · ค่าประมาณ · ไม่รวมสาย</dd>
+        </dl>
+      </div>
+      <div class="legend" aria-label="สีของชิ้นส่วน">
+        <span class="legend-item"><i class="legend-dot front-dot"></i>ฝาหน้า</span>
+        <span class="legend-item"><i class="legend-dot back-dot"></i>ฝาหลัง</span>
+        <span class="legend-item"><i class="legend-dot board-dot"></i>บอร์ดควบคุม</span>
+        <span class="legend-item"><i class="legend-dot battery-dot"></i>แบตเตอรี่</span>
+        <span class="legend-item"><i class="legend-dot camera-dot"></i>ชุดกล้อง</span>
+        <span class="legend-item"><i class="legend-dot mount-dot"></i>ชุดยึด</span>
+      </div>
+      <div class="stage-bottom">
+        <nav class="view-controls" aria-label="เลือกมุมมอง">
+          <button type="button" data-view="iso" class="active" aria-pressed="true">สามมิติ</button>
+          <button type="button" data-view="front" aria-pressed="false">ด้านหน้า</button>
+          <button type="button" data-view="side" aria-pressed="false">ด้านข้าง</button>
+          <button type="button" data-view="solder" aria-pressed="false">งานบัดกรี</button>
+          <button type="button" data-view="conversation" aria-pressed="false">สนทนา</button>
+          <button type="button" data-view="fit" title="จัดโมเดลให้พอดีกับหน้าจอ">พอดีจอ</button>
+          <button type="button" id="pendantModeToggle" aria-pressed="false">จำลองการห้อยคอ</button>
+        </nav>
+        <div class="canvas-footer"><div class="mouse-hint"><span><b>ลาก</b> หมุนโมเดล</span><span><b>คลิกขวา + ลาก</b> เลื่อน</span><span><b>เลื่อนล้อเมาส์</b> ซูม</span></div><span class="scale-badge">1 หน่วย = 1 มม.</span></div>
+      </div>
+      <section id="pendantPanel" class="pendant-panel" hidden aria-label="ตัวควบคุมการจำลองการห้อยคอ">
+        <header class="pendant-panel-heading"><div><p class="eyebrow">ข้อมูลจากการจำลอง</p><h2>การห้อยคอและการพลิกของกล่อง</h2></div><button type="button" id="pendantExit">ออกจากโหมด</button></header>
+        <div class="pendant-clips" role="group" aria-label="เลือกคลิปจำลอง">
+          <label>แบบ<select id="pendantDesign" aria-label="แบบที่จะจำลอง"></select></label>
+          <label>เทียบกับ<select id="pendantCompareDesign" aria-label="แบบที่ใช้เทียบ"></select></label>
+          <label>ท่าทาง<select id="pendantScenario" aria-label="ท่าทางของคนใส่"></select></label>
+          <label>ระยะห้อย<select id="pendantDrop" aria-label="ระยะห้อยจากคอ"></select></label>
+        </div>
+        <div class="pendant-playback">
+          <button type="button" id="pendantPlay">หยุด</button>
+          <label for="pendantSpeed">ความเร็ว</label>
+          <select id="pendantSpeed" aria-label="ความเร็วแอนิเมชัน"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
+          <label class="pendant-time-label" for="pendantTime">เวลา</label>
+          <input id="pendantTime" type="range" min="0" max="1000" step="1" value="0" aria-label="เลื่อนเวลาในคลิป">
+          <output id="pendantTimeValue" for="pendantTime">0.00 วินาที</output>
+        </div>
+        <div id="pendantStats" class="pendant-stats" aria-live="polite"></div>
+        <p id="pendantFlip" class="pendant-flip" aria-live="polite"></p>
+        <p id="pendantNote" class="pendant-note"></p>
+      </section>
+      <div id="loadStatus" class="load-overlay" role="status">กำลังโหลดต้นแบบ 3 มิติ…</div>
+      <div id="status" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    </section>
+  </main>
+  <footer class="workflow" aria-label="แนวคิดการทำงานของอุปกรณ์">
+    <div class="workflow-label"><strong>บันทึกระหว่างวัน · ทบทวนตอนเย็น</strong><span>แนวคิดการทำงานของระบบ</span></div>
+    <div class="flow-steps">
+      <span class="flow-step"><span class="flow-num">1</span>ภาพทุก 60 วินาที</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-step"><span class="flow-num">2</span>กดปุ่ม: วิดีโอ + เสียง</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-step"><span class="flow-num">3</span>Wi-Fi ตอนเย็น</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-step"><span class="flow-num">4</span>เซิร์ฟเวอร์สร้างไฮไลต์</span>
+    </div>
+  </footer>
+</div>
+<!-- PENDANT_CLIPS_INSERT -->
+<!-- THREE_MODULE_INSERT -->
+</body>
+</html>

@@ -1,0 +1,23 @@
+Built outputs/index.html (712434 bytes)
+PASS: photo-based 120x120x40 cardboard; head-up USB, front-mounted battery, external antenna/button, open top/flap/lanyard, punched openings, Box3 internal clearances, no STL
+PASS: both battery layouts; 64 axial bore rays, positive wall controls, spring clearance, closed hinge extrusions
+PASS: 18 detailed assemblies; castellations, connectors, wiring clearance, cardboard openings/hooks/external antenna; no cardboard STL; printed solids closed
+PASS: geometry budget < 180000 triangles / 450 meshes (max 48812 triangles / 201 meshes)
+PASS: 18 inspection assemblies; computed dimension endpoints and live clearances, CONFIG parts lists
+PASS: both battery envelopes, lower battery placement and USB bay clearance
+PASS: inner magnets clear of board, battery and USB parts for both battery sizes
+PASS: 18 battery/mount/angle assemblies; finite geometry, closed part solids, optical axes, all face clearances
+PASS: embedded clips, adjacent-frame interpolation, flip orientation and scene cleanup
+PRINT: v2-front-shell.stl | 145684 bytes | 40 x 98 x 10.75 mm | 11518.7079 mm3 | 14.2832 g PLA (100% solid upper estimate)
+PRINT: v2-back-shell-pendant.stl | 161184 bytes | 46.2 x 104.5 x 10.75 mm | 11828.9708 mm3 | 14.6679 g PLA (100% solid upper estimate)
+PRINT: v2-button-cap.stl | 24084 bytes | 12 x 12 x 3.9 mm | 252.335 mm3 | 0.3129 g PLA (100% solid upper estimate)
+PRINT: v2-fit-coupon.stl | 4284 bytes | 29.8 x 23 x 3 mm | 1064.04 mm3 | 1.3194 g PLA (100% solid upper estimate)
+PASS: 4 binary mm STLs reread; finite, closed oriented source shells, pendant eyelets, countersinks, coupon and walls, z=0, centered XY, 180 mm bed; missing-addition and corrupt-STL controls
+PASS: print handout regeneration follows changed CONFIG fit clearances
+PASS: camera ribbon clears microSD socket, card, microphone and Sense board
+PASS: 12 shell combinations; closed oriented edges, positive volume, exact dimensions, USB and microSD ray clearance
+PASS: 9 UI states; version notes, real cardboard battery, disabled controls, STL guard, solder visibility and restoration; Thai UI intact
+PASS: 12 v2 assemblies; added parts closed, inside the case, clear of board/card/USB/battery/magnets; side SD opening closed; legacy printed design retained
+PASS: 18 assemblies (v1/legacy/v2 × battery × mount); original containment/collisions retained; back BAT+/BAT−, edge D5/D1/GND, v2 back VUSB/GND, no D0; solder domes and full wire radii within PCB gap; undersized-gap warning
+PASS: Edge headless; CDN page load, 3 versions, open-front cover toggle, dimension labels, opacity, explosion/rebuild, STL invariance/guards, solder view, pendant comparison and flip screenshot, scene cleanup, disposal, 390px mobile; no console errors
+PASS: all 15 test files; build succeeded; Edge console errors: 0

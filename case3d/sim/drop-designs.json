@@ -1,0 +1,43 @@
+{
+  "eyelet": {
+    "id": "eyelet",
+    "name": "แบบเก่า · ห่วงยื่น (ส่งพิมพ์แล้ว)",
+    "shape": "eyelet",
+    "backOffsetY": 3.25,
+    "frontStl": "designs/eyelet/v2-front-shell.stl",
+    "backStl": "designs/eyelet/v2-back-shell-pendant.stl",
+    "fe": "drop-fe-results.json",
+    "contacts": {
+      "eyeletTop": "eyelet-top",
+      "eyeletDiag": "eyelet-diag",
+      "cornerBack": "corner-back",
+      "cornerFront": "corner-front",
+      "edge": "rim-side",
+      "face": null,
+      "faceFront": "face-front",
+      "faceBack": "face-back"
+    },
+    "note": "ชุดเก่า · ห่วงยื่น (ส่งพิมพ์แล้ว)"
+  },
+  "lug": {
+    "id": "lug",
+    "name": "แบบใหม่ · แผ่นหัว + แท่งเกี่ยว (Rev 3)",
+    "shape": "lug",
+    "backOffsetY": 3.5,
+    "frontStl": "designs/lug/v2-front-shell.stl",
+    "backStl": "designs/lug/v2-back-shell-pendant.stl",
+    "fe": "drop-fe-results-lug.json",
+    "contacts": {
+      "tabTop": "tab-top",
+      "tabCorner": "tab-corner",
+      "tabEdge": "tab-edge",
+      "cornerBack": "corner-back",
+      "cornerFront": "corner-front",
+      "edge": "rim-side",
+      "face": null,
+      "faceFront": "face-front",
+      "faceBack": "face-back"
+    },
+    "note": "แบบใหม่ · แผ่นหัว + แท่งเกี่ยว (Rev 3)"
+  }
+}

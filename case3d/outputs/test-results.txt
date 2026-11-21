@@ -1,0 +1,25 @@
+Built outputs/index.html (1860307 bytes)
+PASS: photo-based 120x120x40 cardboard; head-up USB, front-mounted battery, external antenna/button, open top/flap/lanyard, punched openings, Box3 internal clearances, no STL
+PASS: both battery layouts; 64 axial bore rays, positive wall controls, spring clearance, closed hinge extrusions
+PASS: 24 detailed assemblies; castellations, connectors, wiring clearance, cardboard openings/hooks/external antenna; no cardboard STL; printed solids closed
+PASS: geometry budget < 180000 triangles / 450 meshes (max 48608 triangles / 201 meshes)
+PASS: 18 inspection assemblies; computed dimension endpoints and live clearances, CONFIG parts lists
+PASS: both battery envelopes, lower battery placement and USB bay clearance
+PASS: inner magnets clear of board, battery and USB parts for both battery sizes
+PASS: microphone opening offset 0.000 mm XY; duct wall 1.45 mm; clears shell walls and screw bosses
+PASS: 18 battery/mount/angle assemblies; finite geometry, closed part solids, optical axes, all face clearances
+PASS: embedded clips, adjacent-frame interpolation, flip orientation and scene cleanup
+PASS: v2p rebuilds the printed eyelet set (front + back STL byte-identical to sim/designs/eyelet)
+PRINT: v2-front-shell.stl | 141284 bytes | 40 x 98 x 10.75 mm | 11536.9792 mm3 | 14.3059 g PLA (100% solid upper estimate)
+PRINT: v2-back-shell-pendant.stl | 164884 bytes | 40 x 105 x 10.75 mm | 14850.1903 mm3 | 18.4142 g PLA (100% solid upper estimate)
+PRINT: v2-button-cap.stl | 24084 bytes | 12 x 12 x 3.9 mm | 252.335 mm3 | 0.3129 g PLA (100% solid upper estimate)
+PRINT: v2-fit-coupon.stl | 4284 bytes | 29.8 x 32 x 3 mm | 1511.04 mm3 | 1.8737 g PLA (100% solid upper estimate)
+PASS: 4 binary mm STLs reread; finite, closed oriented source shells, pendant lanyard tab/slots, countersinks, coupon and walls, z=0, centered XY, 180 mm bed; missing-addition and corrupt-STL controls
+PASS: print handout regeneration follows changed CONFIG fit clearances
+PASS: camera ribbon clears microSD socket, card, microphone and Sense board
+PASS: 12 shell combinations; closed oriented edges, positive volume, exact dimensions, USB and microSD ray clearance
+PASS: 12 UI states; version notes, real cardboard battery, disabled controls, STL guard, solder visibility and restoration; Thai UI intact
+PASS: 12 v2 assemblies; added parts closed, inside the case, clear of board/card/USB/battery/magnets; side SD opening closed; legacy printed design retained
+PASS: 24 assemblies (v1/legacy/v2 × battery × mount); original containment/collisions retained; back BAT+/BAT−, edge D5/D1/GND, v2 back VUSB/GND, no D0; solder domes and full wire radii within PCB gap; undersized-gap warning
+PASS: Edge headless; CDN page load, 4 versions, open-front cover toggle, dimension labels, opacity, explosion/rebuild, STL invariance/guards, solder view, pendant comparison and flip screenshot, scene cleanup, disposal, 390px mobile; no console errors
+PASS: all 17 test files; build succeeded; Edge console errors: 0
