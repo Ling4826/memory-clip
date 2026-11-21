@@ -6,7 +6,11 @@ A small camera you wear on your chest. It takes a photo every minute, records a 
 
 Solo project: firmware, server, web app and 3D-printed case.
 
+![Web app: 5 days, 2,861 photos](docs/web-home.png)
+
 ## How it works
+
+![Architecture](docs/architecture.png)
 
 ```
 XIAO ESP32-S3 Sense ──Wi-Fi (PC hotspot)──> Flask server on the PC ──> web app (phone / iPad via Tailscale)
@@ -19,6 +23,10 @@ XIAO ESP32-S3 Sense ──Wi-Fi (PC hotspot)──> Flask server on the PC ─�
 - Seeed XIAO ESP32-S3 Sense (camera + PDM mic, 8 MB PSRAM)
 - 603450 LiPo battery, external button
 - 3D-printed case designed in Three.js (`case3d/`), with a drop-test simulation
+
+| First prototype (cardboard box) | Case design (exploded view) |
+|---|---|
+| ![Prototype](docs/prototype-inside.jpg) | ![Case](docs/case-exploded.jpg) |
 
 ## What the firmware does
 - Wakes from deep sleep for about 1.2 s per photo (~60 KB each), then sleeps again
